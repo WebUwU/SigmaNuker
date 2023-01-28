@@ -1,0 +1,11 @@
+{
+    "TOKEN": "Token",
+    "PROXIES": false,
+    "SPAM_PRN": true,
+    "WEBHOOK_NAME": "test",
+    "MESSAGE": "@everyone test",
+    "AMMOUNT_OF_CHANNELS": 1,
+    "MESSAGES_PER_CHANNEL": 1,
+    "CHANNEL_NAME": "test"
+    
+    }
