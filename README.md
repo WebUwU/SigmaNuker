@@ -6,7 +6,7 @@
 
 SigmaNuker is a powerful Discord spam Tool that allows you to easily flood channels with messages. It features an advanced configuration system that allows you to customize the bot to your needs.
 
-### Features
+### 🚀 Features
 - Ability to send a specified message to multiple channels
 - Proxies support for anonymous messaging
 - Option to print sent messages
@@ -14,13 +14,13 @@ SigmaNuker is a powerful Discord spam Tool that allows you to easily flood chann
 - Option to change the channel name
 - Option to change the number of messages per channel
 
-## Requirements
+## 📋 Requirements
 - Python 3.8 or higher
 - Discord Token | bot or user
 - Proxies (optional)
 
 
-### Installation ans Usage
+### 💻 Installation ans Usage
 - Clone or download the repository 
 - Run `pip install -r requirements.txt` or `run setup.batch`
 - Edit `config.json` file with following details:
