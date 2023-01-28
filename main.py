@@ -73,15 +73,13 @@ print(Colorate.Color(Colors.purple, '', False))
 
 api = "https://discord.com/api/v9"
 nwords = None
-bot_or_person = input("Is this a bot token or a person (user) token? | (bot/person) ")
+bot_or_person = input("Is this a bot token or a person (user) token? (bot/person) ")
 
-if bot_or_person == "bot":
+if bot_or_person == "bot" or bot_or_person == "bo" or bot_or_person == "b":
     token = TOKEN
-    nwords = {
-    'Authorization': f'Bot {token}',
-    'Content-Type': 'application/json'}
+    nwords = {"Authorization": f"Bot {token}"}
     
-elif bot_or_person == "person":
+elif bot_or_person == "person" or bot_or_person == "user" or bot_or_person == "u" or  bot_or_person == "p":
     token = TOKEN
     nwords = {"Authorization": f"{token}"}
 
@@ -109,12 +107,12 @@ async def main():
             data_channel = await channel.json()
             channel_id = data_channel["id"]
             try:
-                async with schinken.post(f'{api}/channels/{channel_id}/webhooks', headers=nwords, json={"name": WEBHOOK_NAME }) as r: # must add "avatar": WEBHOOK_PROFILE funktion
+                async with schinken.post(f'{api}/channels/{channel_id}/webhooks', headers=nwords, json={"name": WEBHOOK_NAME}) as r:
                     webhook_raw = await r.json()
                     webhook = f'https://discord.com/api/webhooks/{webhook_raw["id"]}/{webhook_raw["token"]}'
                     threading.Thread(target=spamhook, args=(webhook,)).start()
             except:
-                print('U ratelimited af :skul:')
+                print('U ratelimited af :skull:')
 
 def spamhookp(hook):
     for i in range(MESSAGES_PER_CHANNEL):
@@ -155,9 +153,9 @@ def spamhook(hook):
                 print(f'error spamming! {hook}')
     sys.exit()
 
+
 if PROXIES == True:
     proxy_scrape()
 
 if __name__ == '__main__':
     asyncio.run(main())
-
