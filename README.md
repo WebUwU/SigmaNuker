@@ -4,7 +4,7 @@
 [![Discord](https://img.shields.io/discord/1068951240043659365.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/1068951240043659365)
 
 
-SigmaNuker is a powerful Discord spam Tool that allows you to easily flood channels with messages. It features an advanced configuration system that allows you to customize the bot to your needs.
+SigmaNuker (thx to https://github.com/KDot227) is a powerful Discord spam Tool that allows you to easily flood channels with messages. It features an advanced configuration system that allows you to customize the bot to your needs.
 
 ### 🚀 Features
 - Ability to send a specified message to multiple channels
