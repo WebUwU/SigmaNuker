@@ -22,7 +22,7 @@ SigmaNuker is a powerful Discord spam Tool that allows you to easily flood chann
 
 ### 💻 Installation ans Usage
 - Clone or download the repository 
-- Run `pip install -r requirements.txt` or `run setup.batch`
+- Run `pip install -r requirements.txt` or `run setup.bat`
 - Edit `config.json` file with following details:
 - Run it with `python main.py`
 - 
