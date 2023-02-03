@@ -22,6 +22,7 @@ with open('config.json', 'r') as f:
     MESSAGES_PER_CHANNEL = config["MESSAGES_PER_CHANNEL"]
     CHANNEL_NAME = config["CHANNEL_NAME"]
     WEBHOOK_NAME = config["WEBHOOK_NAME"]
+    WEBHOOK_PROFILE_PIC = config["WEBHOOK_PROFILE_PIC"]
     
 
 banner = Center.XCenter("""
@@ -123,12 +124,12 @@ def spamhookp(hook):
                     lines = f.readlines()
                     random_int = random.randint(0,len(lines)-1)
                     ran = lines[random_int]
-                http.request('POST', hook, fields={'content': f"{MESSAGE} + {ran}"}, proxy_url=proxy())
+                http.request('POST', hook, fields={'content': f"{MESSAGE} + {ran}", 'avatar_url': f"{WEBHOOK_PROFILE_PIC}"}, proxy_url=proxy())
             except:
                 print(f'error spamming! {hook}')
         else:
             try:
-                http.request('POST', hook, fields={'content': MESSAGE}, proxy_url=proxy())
+                http.request('POST', hook, fields={'content': MESSAGE, 'avatar_url': WEBHOOK_PROFILE_PIC}, proxy_url=proxy())
             except:
                 print(f'error spamming! {hook}')
     sys.exit()
@@ -143,12 +144,15 @@ def spamhook(hook):
                     lines = f.readlines()
                     random_int = random.randint(0,len(lines)-1)
                     ran = lines[random_int]
-                http.request('POST', hook, fields={'content': f"{MESSAGE} + {ran}"})
+                http.request('POST', hook, fields={
+                    
+                    'content': f"{MESSAGE} + {ran}", 
+                    'avatar_url': f"{WEBHOOK_PROFILE_PIC}" })
             except:
                 print(f'error spamming! {hook}')
         else:
             try:
-                http.request('POST', hook, fields={'content': MESSAGE})
+                http.request('POST', hook, fields={'content': MESSAGE, 'avatar_url': WEBHOOK_PROFILE_PIC})
             except:
                 print(f'error spamming! {hook}')
     sys.exit()
