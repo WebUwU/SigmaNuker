@@ -6,13 +6,13 @@
     "SPAM_PRN": false,
 
 
-    "WEBHOOK_NAME": "test",
+    "WEBHOOK_NAME": "WebhookName",
     "WEBHOOK_PROFILE_PIC": "https://cdn.discordapp.com/attachments/1025650157326450708/1056569437899210863/719BC2BF-AD90-4B23-9CB7-D9CAF3CDBE7E.jpg",
 
     
-    "MESSAGE": "@everyone test",
+    "MESSAGE": "@everyone Here a Message",
     "AMMOUNT_OF_CHANNELS": 1,
     "MESSAGES_PER_CHANNEL": 1,
-    "CHANNEL_NAME": "test"
+    "CHANNEL_NAME": "Channel Name "
     
     }
