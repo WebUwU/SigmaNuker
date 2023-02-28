@@ -1,19 +1,19 @@
 {
-    "TOKEN": "MTA0NDY4NjQwMDM2NjMyNTg0MA.G8J5gZ.G9qRBepMKPtmh8Dom8ti4jz95uIlz5mMAh8r38",
+    "TOKEN": "DISCORD USER OR BOT TOKEN",
 
 
     "PROXIES": false,
     "SPAM_PRN": true,
 
 
-    "WEBHOOK_NAME": "fucked by Cool pp",
+    "WEBHOOK_NAME": "YOUR WEBHOOK NAME",
     "WEBHOOK_PROFILE_PIC": "https://cdn.discordapp.com/attachments/1025650157326450708/1056569437899210863/719BC2BF-AD90-4B23-9CB7-D9CAF3CDBE7E.jpg",
 
     
     "MESSAGE": "@everyone https://discord.gg/paAVJmvCbf",
     "AMMOUNT_OF_CHANNELS": 2,
     "MESSAGES_PER_CHANNEL": 2,
-    "CHANNEL_NAME": "nuked",
+    "CHANNEL_NAME": "CHANNEL NAME",
 
 
     "Delete_Roles": true
