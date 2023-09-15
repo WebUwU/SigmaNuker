@@ -162,7 +162,7 @@ if DELETE_ROLES == True:
                     else:
                         Write.Print(f" [!] Failed to retrieve roles.", Colors.red, interval=0.00000001)  
                         
-asyncio.run(DELETE_ROLESS())
+        asyncio.run(DELETE_ROLESS())
 
 
 def spamhookp(hook):
