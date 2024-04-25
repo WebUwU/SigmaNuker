@@ -16,7 +16,7 @@ __author__ = 'WebUwU'
 
 
 
-with open('config.json', 'r') as f:
+with open('config.json', 'r', encoding='utf-8') as f:
     config = json.load(f)
     TOKEN = config["TOKEN"]
     MESSAGE = config["MESSAGE"]
